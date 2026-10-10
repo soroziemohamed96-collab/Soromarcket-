@@ -1,1283 +1,427 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soromarcket</title>
-
 <style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
-  padding-bottom:75px;
-}
-
-header{
-  background:#087f23;
-  color:white;
-  padding:18px 15px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-.search{
-  width:100%;
-  padding:13px;
-  border:0;
-  border-radius:10px;
-  font-size:16px;
-}
-
-.page{
-  display:none;
-  padding:15px;
-}
-
-.page.active{
-  display:block;
-}
-
-h2{
-  margin-top:5px;
-}
-
-.products{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.product{
-  background:white;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 7px #ddd;
-}
-
-.product img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
-
-.product-info{
-  padding:10px;
-}
-
-.product-name{
-  font-weight:bold;
-  margin-bottom:7px;
-}
-
-.price{
-  color:#087f23;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-button{
-  border:0;
-  border-radius:8px;
-  padding:11px;
-  cursor:pointer;
-}
-
-.buy{
-  width:100%;
-  background:#087f23;
-  color:white;
-}
-
-.card{
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:15px;
-}
-
-input{
-  width:100%;
-  padding:13px;
-  margin:6px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:15px;
-}
-
-.green{
-  width:100%;
-  background:#087f23;
-  color:white;
-  margin-top:8px;
-}
-
-.red{
-  background:#d32f2f;
-  color:white;
-}
-
-.gray{
-  background:#ddd;
-}
-
-.cart-item{
-  padding:12px 0;
-  border-bottom:1px solid #ddd;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.total{
-  font-size:20px;
-  font-weight:bold;
-  color:#087f23;
-  margin:15px 0;
-}
-
-.admin-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid #ddd;
-  padding:10px 0;
-}
-
-.admin-item img{
-  width:55px;
-  height:55px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.admin-info{
-  flex:1;
-}
-
-.order{
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:12px;
-}
-
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:70px;
-  background:white;
-  border-top:1px solid #ddd;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:20;
-}
-
-.bottom button{
-  background:white;
-  font-size:12px;
-}
-
-.bottom span{
-  display:block;
-  font-size:21px;
-}
-
-.badge{
-  background:red;
-  color:white;
-  border-radius:20px;
-  padding:2px 6px;
-}
-
-.empty{
-  text-align:center;
-  padding:30px;
-  color:#777;
-}
-
-.hide{
-  display:none;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222;padding-bottom:75px}
+header{background:#087f23;color:white;padding:18px 15px;position:sticky;top:0;z-index:10}
+.logo{font-size:25px;font-weight:bold;margin-bottom:12px}
+.search{width:100%;padding:13px;border:0;border-radius:10px;font-size:16px}
+.page{display:none;padding:15px}
+.page.active{display:block}
+h2{margin-top:5px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.product{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 7px #ddd}
+.product img{width:100%;height:150px;object-fit:cover}
+.product-info{padding:10px}
+.product-name{font-weight:bold;margin-bottom:7px}
+.price{color:#087f23;font-weight:bold;margin-bottom:8px}
+button{border:0;border-radius:8px;padding:11px;cursor:pointer}
+.buy{width:100%;background:#087f23;color:white}
+.card{background:white;padding:15px;border-radius:12px;margin-bottom:15px}
+input{width:100%;padding:13px;margin:6px 0;border:1px solid #ddd;border-radius:8px;font-size:15px}
+.green{width:100%;background:#087f23;color:white;margin-top:8px}
+.red{background:#d32f2f;color:white}
+.gray{background:#ddd}
+.cart-item{padding:12px 0;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center}
+.total{font-size:20px;font-weight:bold;color:#087f23;margin:15px 0}
+.admin-item{display:flex;align-items:center;gap:10px;border-bottom:1px solid #ddd;padding:10px 0}
+.admin-item img{width:55px;height:55px;object-fit:cover;border-radius:8px}
+.admin-info{flex:1;overflow-wrap:anywhere}
+.order{background:white;padding:15px;border-radius:12px;margin-bottom:12px;overflow-wrap:anywhere}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:70px;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;align-items:center;z-index:20}
+.bottom button{background:white;font-size:12px;padding:6px}
+.bottom span{display:block;font-size:21px}
+.badge{background:red;color:white;border-radius:20px;padding:2px 6px}
+.empty{text-align:center;padding:30px;color:#777}
+.hide{display:none}
+.hint{font-size:13px;color:#666;line-height:1.4}
 </style>
 </head>
-
 <body>
 
-<!-- EN-TÊTE -->
-
 <header>
-
-  <div class="logo">
-    🛍️ Soromarcket
-  </div>
-
-  <input
-    class="search"
-    id="search"
-    placeholder="🔎 Rechercher un produit..."
-    oninput="searchProducts()"
-  >
-
+<div class="logo">🛍️ Soromarcket</div>
+<input class="search" id="search" placeholder="🔎 Rechercher un produit..." oninput="searchProducts()">
 </header>
 
-
-<!-- BOUTIQUE -->
-
 <section id="shop" class="page active">
-
-  <h2>🛍️ Nos produits</h2>
-
-  <div id="products" class="products"></div>
-
+<h2>🛍️ Nos produits</h2>
+<div id="products" class="products"></div>
 </section>
-
-
-<!-- PANIER -->
 
 <section id="cart" class="page">
-
-  <h2>🛒 Mon panier</h2>
-
-  <div class="card">
-
-    <div id="cartList"></div>
-
-    <div id="total" class="total">
-      Total : 0 FCFA
-    </div>
-
-    <button
-      class="green"
-      onclick="checkout()">
-      📦 Commander
-    </button>
-
-  </div>
-
+<h2>🛒 Mon panier</h2>
+<div class="card">
+<div id="cartList"></div>
+<div id="total" class="total">Total : 0 FCFA</div>
+<button class="green" onclick="checkout()">📦 Commander</button>
+</div>
 </section>
-
-
-<!-- COMMANDE -->
 
 <section id="checkout" class="page">
-
-  <h2>📦 Livraison</h2>
-
-  <div class="card">
-
-    <input
-      id="name"
-      placeholder="Nom complet"
-    >
-
-    <input
-      id="phone"
-      type="tel"
-      placeholder="Numéro de téléphone"
-    >
-
-    <input
-      id="city"
-      placeholder="Ville"
-    >
-
-    <input
-      id="address"
-      placeholder="Adresse de livraison"
-    >
-
-    <button
-      class="green"
-      onclick="sendOrder()">
-      ✅ Confirmer la commande
-    </button>
-
-    <button
-      class="gray"
-      onclick="showPage('cart')">
-      ← Retour
-    </button>
-
-  </div>
-
+<h2>📦 Livraison</h2>
+<div class="card">
+<input id="name" placeholder="Nom complet">
+<input id="phone" type="tel" placeholder="Numéro de téléphone">
+<input id="city" placeholder="Ville">
+<input id="address" placeholder="Adresse de livraison">
+<button class="green" onclick="sendOrder()">✅ Confirmer la commande</button>
+<button class="gray" onclick="showPage('cart');showCart()">← Retour</button>
+</div>
 </section>
-
-
-<!-- GESTION -->
 
 <section id="admin" class="page">
+<h2>🔐 Gestion de Soromarcket</h2>
+<div id="login" class="card">
+<h3>🔑 Propriétaire</h3>
+<input id="password" type="password" placeholder="Mot de passe">
+<button class="green" onclick="login()">Se connecter</button>
+<p class="hint">Mot de passe initial : 1234. Change-le dans le code avant de partager l'application. Cette protection simple n'est pas une sécurité forte.</p>
+</div>
 
-  <h2>🔐 Gestion de Soromarcket</h2>
+<div id="panel" class="hide">
+<div class="card">
+<h3>➕ Ajouter un produit</h3>
+<input id="productName" placeholder="Nom du produit">
+<input id="productPrice" type="number" min="1" placeholder="Prix en FCFA">
+<label for="productImage">Photo du produit</label>
+<input id="productImage" type="file" accept="image/*">
+<p class="hint">Choisis une photo depuis ton téléphone. Les photos sont enregistrées dans ce navigateur ; évite les fichiers très volumineux.</p>
+<button class="green" onclick="addProduct()">➕ Publier le produit</button>
+</div>
 
-
-  <!-- CONNEXION -->
-
-  <div id="login" class="card">
-
-    <h3>🔑 Propriétaire</h3>
-
-    <input
-      id="password"
-      type="password"
-      placeholder="Mot de passe"
-    >
-
-    <button
-      class="green"
-      onclick="login()">
-      Se connecter
-    </button>
-
-  </div>
-
-
-  <!-- PANNEAU ADMIN -->
-
-  <div id="panel" class="hide">
-
-    <div class="card">
-
-      <h3>➕ Ajouter un produit</h3>
-
-      <input
-        id="productName"
-        placeholder="Nom du produit"
-      >
-
-      <input
-        id="productPrice"
-        type="number"
-        placeholder="Prix en FCFA"
-      >
-
-      <input
-        id="productImage"
-        placeholder="Lien de l'image"
-      >
-
-      <button
-        class="green"
-        onclick="addProduct()">
-        ➕ Ajouter
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>📦 Mes produits</h3>
-
-      <div id="adminProducts"></div>
-
-    </div>
-
-
-    <button
-      class="red"
-      onclick="logout()">
-      🔒 Se déconnecter
-    </button>
-
-  </div>
-
+<div class="card">
+<h3>📦 Mes produits</h3>
+<div id="adminProducts"></div>
+</div>
+<button class="red" onclick="logout()">🔒 Se déconnecter</button>
+</div>
 </section>
-
-
-<!-- COMMANDES -->
 
 <section id="orders" class="page">
-
-  <h2>📋 Commandes reçues</h2>
-
-  <div id="ordersList"></div>
-
+<h2>📋 Commandes reçues</h2>
+<div id="ordersActions" class="card hide">
+<button class="red" onclick="deleteAllOrders()">🗑️ Supprimer toutes les commandes</button>
+<p class="hint">Cette action supprime la liste des commandes enregistrées sur ce navigateur.</p>
+</div>
+<div id="ordersList"></div>
 </section>
 
-
-<!-- MENU -->
-
 <nav class="bottom">
-
-  <button onclick="showPage('shop')">
-    <span>🏠</span>
-    Boutique
-  </button>
-
-  <button
-    onclick="showPage('cart');showCart()">
-
-    <span>🛒</span>
-    Panier
-
-    <b
-      id="badge"
-      class="badge">
-      0
-    </b>
-
-  </button>
-
-  <button onclick="showPage('admin')">
-    <span>⚙️</span>
-    Gestion
-  </button>
-
-  <button
-    onclick="showPage('orders');showOrders()">
-
-    <span>📋</span>
-    Commandes
-
-  </button>
-
+<button onclick="showPage('shop')"><span>🏠</span>Boutique</button>
+<button onclick="showPage('cart');showCart()"><span>🛒</span>Panier <b id="badge" class="badge">0</b></button>
+<button onclick="showPage('admin')"><span>⚙️</span>Gestion</button>
+<button onclick="showPage('orders');showOrders()"><span>📋</span>Commandes</button>
 </nav>
 
-
 <script>
-
-/* =========================
-   PRODUITS
-========================= */
-
-let products =
-JSON.parse(
-  localStorage.getItem("soroProducts")
-) || [
-
-  {
-    id:1,
-    name:"Smartphone Android",
-    price:75000,
-    image:
-    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80"
-  },
-
-  {
-    id:2,
-    name:"Écouteurs Bluetooth",
-    price:10000,
-    image:
-    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
-  },
-
-  {
-    id:3,
-    name:"Montre connectée",
-    price:20000,
-    image:
-    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"
-  },
-
-  {
-    id:4,
-    name:"Sac à dos",
-    price:12000,
-    image:
-    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=80"
-  }
-
+const defaultProducts=[
+{id:1,name:'Smartphone Android',price:75000,image:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80'},
+{id:2,name:'Écouteurs Bluetooth',price:10000,image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80'},
+{id:3,name:'Montre connectée',price:20000,image:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80'},
+{id:4,name:'Sac à dos',price:12000,image:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=80'}
 ];
 
+function readStore(key,fallback){
+try{
+const v=localStorage.getItem(key);
+return v?JSON.parse(v):fallback;
+}catch(e){return fallback}
+}
 
-/* =========================
-   PANIER
-========================= */
-
-let cart =
-JSON.parse(
-  localStorage.getItem("soroCart")
-) || [];
-
-
-/* =========================
-   COMMANDES
-========================= */
-
-let orders =
-JSON.parse(
-  localStorage.getItem("soroOrders")
-) || [];
-
-
-/* =========================
-   ADMIN
-========================= */
-
+let products=readStore('soroProducts',defaultProducts);
+let cart=readStore('soroCart',[]);
+let orders=readStore('soroOrders',[]);
 let connected=false;
 
-
-/* =========================
-   SAUVEGARDER
-========================= */
-
 function save(){
-
-  localStorage.setItem(
-    "soroProducts",
-    JSON.stringify(products)
-  );
-
-  localStorage.setItem(
-    "soroCart",
-    JSON.stringify(cart)
-  );
-
-  localStorage.setItem(
-    "soroOrders",
-    JSON.stringify(orders)
-  );
-
+try{
+localStorage.setItem('soroProducts',JSON.stringify(products));
+localStorage.setItem('soroCart',JSON.stringify(cart));
+localStorage.setItem('soroOrders',JSON.stringify(orders));
+return true;
+}catch(e){
+alert('⚠️ Stockage plein. Essaie une photo plus petite ou supprime des éléments.');
+return false;
+}
 }
 
-
-/* =========================
-   AFFICHER PRODUITS
-========================= */
+function escapeHTML(s){
+return String(s??'').replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+}
 
 function showProducts(list=products){
-
-  const box =
-    document.getElementById("products");
-
-  box.innerHTML="";
-
-
-  if(list.length===0){
-
-    box.innerHTML =
-      '<div class="empty">Aucun produit trouvé.</div>';
-
-    return;
-  }
-
-
-  list.forEach(product=>{
-
-    box.innerHTML += `
-
-      <div class="product">
-
-        <img
-          src="${product.image}"
-          alt="${product.name}"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            ${product.name}
-          </div>
-
-          <div class="price">
-            ${product.price.toLocaleString()} FCFA
-          </div>
-
-          <button
-            class="buy"
-            onclick="addToCart(${product.id})">
-
-            🛒 Ajouter au panier
-
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
+const box=document.getElementById('products');
+box.innerHTML='';
+if(!list.length){
+box.innerHTML='<div class="empty">Aucun produit trouvé.</div>';
+return;
 }
-
-
-/* =========================
-   RECHERCHE
-========================= */
+list.forEach(p=>{
+box.innerHTML+=`<div class="product">
+<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}">
+<div class="product-info">
+<div class="product-name">${escapeHTML(p.name)}</div>
+<div class="price">${Number(p.price).toLocaleString('fr-FR')} FCFA</div>
+<button class="buy" onclick="addToCart(${Number(p.id)})">🛒 Ajouter au panier</button>
+</div></div>`;
+});
+}
 
 function searchProducts(){
-
-  const text =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-
-  const result =
-    products.filter(product =>
-      product.name
-      .toLowerCase()
-      .includes(text)
-    );
-
-
-  showProducts(result);
-
+const t=document.getElementById('search').value.toLowerCase();
+showProducts(products.filter(p=>p.name.toLowerCase().includes(t)));
 }
-
-
-/* =========================
-   PANIER
-========================= */
 
 function addToCart(id){
-
-  const product =
-    products.find(
-      p => p.id === id
-    );
-
-
-  if(!product) return;
-
-
-  cart.push(product);
-
-  save();
-
-  updateBadge();
-
-
-  alert(
-    "✅ " +
-    product.name +
-    " ajouté au panier !"
-  );
-
+const p=products.find(x=>x.id===id);
+if(!p)return;
+cart.push({...p});
+save();
+updateBadge();
+alert('✅ '+p.name+' ajouté au panier !');
 }
-
-
-/* =========================
-   AFFICHER PANIER
-========================= */
 
 function showCart(){
-
-  const box =
-    document.getElementById("cartList");
-
-  const totalBox =
-    document.getElementById("total");
-
-
-  box.innerHTML="";
-
-
-  if(cart.length===0){
-
-    box.innerHTML =
-      '<div class="empty">Ton panier est vide.</div>';
-
-    totalBox.textContent =
-      "Total : 0 FCFA";
-
-    return;
-  }
-
-
-  let total=0;
-
-
-  cart.forEach(
-    (product,index)=>{
-
-      total += product.price;
-
-
-      box.innerHTML += `
-
-        <div class="cart-item">
-
-          <div>
-
-            <b>
-              ${product.name}
-            </b>
-
-            <br>
-
-            ${product.price.toLocaleString()}
-            FCFA
-
-          </div>
-
-          <button
-            class="red"
-            onclick="removeFromCart(${index})">
-
-            ✕
-
-          </button>
-
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  totalBox.textContent =
-    "Total : " +
-    total.toLocaleString() +
-    " FCFA";
-
+const box=document.getElementById('cartList');
+const tb=document.getElementById('total');
+box.innerHTML='';
+if(!cart.length){
+box.innerHTML='<div class="empty">Ton panier est vide.</div>';
+tb.textContent='Total : 0 FCFA';
+return;
+}
+let total=0;
+cart.forEach((p,i)=>{
+total+=Number(p.price);
+box.innerHTML+=`<div class="cart-item">
+<div><b>${escapeHTML(p.name)}</b><br>${Number(p.price).toLocaleString('fr-FR')} FCFA</div>
+<button class="red" onclick="removeFromCart(${i})">✕</button>
+</div>`;
+});
+tb.textContent='Total : '+total.toLocaleString('fr-FR')+' FCFA';
 }
 
-
-/* =========================
-   SUPPRIMER PANIER
-========================= */
-
-function removeFromCart(index){
-
-  cart.splice(index,1);
-
-  save();
-
-  showCart();
-
-  updateBadge();
-
+function removeFromCart(i){
+cart.splice(i,1);
+save();
+showCart();
+updateBadge();
 }
-
-
-/* =========================
-   COMMANDE
-========================= */
 
 function checkout(){
-
-  if(cart.length===0){
-
-    alert(
-      "⚠️ Ton panier est vide."
-    );
-
-    return;
-  }
-
-
-  showPage("checkout");
-
+if(!cart.length){
+alert('⚠️ Ton panier est vide.');
+return;
 }
-
-
-/* =========================
-   ENVOYER COMMANDE
-========================= */
+showPage('checkout');
+}
 
 function sendOrder(){
+const name=document.getElementById('name').value.trim();
+const phone=document.getElementById('phone').value.trim();
+const city=document.getElementById('city').value.trim();
+const address=document.getElementById('address').value.trim();
 
-  const name =
-    document
-    .getElementById("name")
-    .value
-    .trim();
-
-  const phone =
-    document
-    .getElementById("phone")
-    .value
-    .trim();
-
-  const city =
-    document
-    .getElementById("city")
-    .value
-    .trim();
-
-  const address =
-    document
-    .getElementById("address")
-    .value
-    .trim();
-
-
-  if(
-    !name ||
-    !phone ||
-    !city ||
-    !address
-  ){
-
-    alert(
-      "⚠️ Remplis tous les champs."
-    );
-
-    return;
-  }
-
-
-  let total=0;
-
-
-  cart.forEach(product=>{
-    total += product.price;
-  });
-
-
-  const order={
-
-    id:Date.now(),
-
-    name:name,
-
-    phone:phone,
-
-    city:city,
-
-    address:address,
-
-    products:[...cart],
-
-    total:total,
-
-    date:
-      new Date()
-      .toLocaleString("fr-FR")
-
-  };
-
-
-  orders.unshift(order);
-
-  cart=[];
-
-  save();
-
-  updateBadge();
-
-
-  document.getElementById("name").value="";
-  document.getElementById("phone").value="";
-  document.getElementById("city").value="";
-  document.getElementById("address").value="";
-
-
-  alert(
-    "🎉 Commande enregistrée avec succès !"
-  );
-
-
-  showPage("shop");
-
+if(!name||!phone||!city||!address){
+alert('⚠️ Remplis tous les champs.');
+return;
+}
+if(!cart.length){
+alert('⚠️ Ton panier est vide.');
+return;
 }
 
-
-/* =========================
-   CONNEXION PROPRIÉTAIRE
-========================= */
-
-function login(){
-
-  const password =
-    document
-    .getElementById("password")
-    .value;
-
-
-  if(password === "1234"){
-
-    connected=true;
-
-
-    document
-    .getElementById("login")
-    .classList
-    .add("hide");
-
-
-    document
-    .getElementById("panel")
-    .classList
-    .remove("hide");
-
-
-    showAdminProducts();
-
-
-    alert(
-      "✅ Connexion réussie !"
-    );
-
-  }else{
-
-    alert(
-      "❌ Mot de passe incorrect."
-    );
-
-  }
-
-}
-
-
-/* =========================
-   DÉCONNEXION
-========================= */
-
-function logout(){
-
-  connected=false;
-
-
-  document
-  .getElementById("login")
-  .classList
-  .remove("hide");
-
-
-  document
-  .getElementById("panel")
-  .classList
-  .add("hide");
-
-
-  document
-  .getElementById("password")
-  .value="";
-
-}
-
-
-/* =========================
-   AJOUTER PRODUIT
-========================= */
-
-function addProduct(){
-
-  if(!connected){
-
-    alert(
-      "⚠️ Connecte-toi d'abord."
-    );
-
-    return;
-  }
-
-
-  const name =
-    document
-    .getElementById("productName")
-    .value
-    .trim();
-
-
-  const price =
-    Number(
-      document
-      .getElementById("productPrice")
-      .value
-    );
-
-
-  const image =
-    document
-    .getElementById("productImage")
-    .value
-    .trim();
-
-
-  if(
-    !name ||
-    !price ||
-    !image
-  ){
-
-    alert(
-      "⚠️ Remplis tous les champs."
-    );
-
-    return;
-  }
-
-
-  products.unshift({
-
-    id:Date.now(),
-
-    name:name,
-
-    price:price,
-
-    image:image
-
-  });
-
-
-  save();
-
-  showProducts();
-
-  showAdminProducts();
-
-
-  document
-  .getElementById("productName")
-  .value="";
-
-
-  document
-  .getElementById("productPrice")
-  .value="";
-
-
-  document
-  .getElementById("productImage")
-  .value="";
-
-
-  alert(
-    "✅ Produit ajouté à Soromarcket !"
-  );
-
-}
-
-
-/* =========================
-   PRODUITS ADMIN
-========================= */
-
-function showAdminProducts(){
-
-  const box =
-    document
-    .getElementById("adminProducts");
-
-
-  box.innerHTML="";
-
-
-  products.forEach(product=>{
-
-    box.innerHTML += `
-
-      <div class="admin-item">
-
-        <img
-          src="${product.image}"
-          alt=""
-        >
-
-        <div class="admin-info">
-
-          <b>
-            ${product.name}
-          </b>
-
-          <br>
-
-          ${product.price.toLocaleString()}
-          FCFA
-
-        </div>
-
-        <button
-          class="red"
-          onclick="deleteProduct(${product.id})">
-
-          🗑️
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =========================
-   SUPPRIMER PRODUIT
-========================= */
-
-function deleteProduct(id){
-
-  if(
-    !confirm(
-      "Supprimer ce produit ?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  products =
-    products.filter(
-      product =>
-      product.id !== id
-    );
-
-
-  save();
-
-  showProducts();
-
-  showAdminProducts();
-
-}
-
-
-/* =========================
-   COMMANDES
-========================= */
-
-function showOrders(){
-
-  const box =
-    document
-    .getElementById("ordersList");
-
-
-  box.innerHTML="";
-
-
-  if(orders.length===0){
-
-    box.innerHTML =
-      '<div class="empty">Aucune commande pour le moment.</div>';
-
-    return;
-  }
-
-
-  orders.forEach(order=>{
-
-    let productList="";
-
-
-    order.products.forEach(product=>{
-
-      productList +=
-        "• " +
-        product.name +
-        " — " +
-        product.price.toLocaleString() +
-        " FCFA<br>";
-
-    });
-
-
-    box.innerHTML += `
-
-      <div class="order">
-
-        <h3>
-          🧾 Commande #${order.id}
-        </h3>
-
-        <p>
-          👤 ${order.name}
-        </p>
-
-        <p>
-          📱 ${order.phone}
-        </p>
-
-        <p>
-          📍 ${order.city}
-        </p>
-
-        <p>
-          🏠 ${order.address}
-        </p>
-
-        <br>
-
-        ${productList}
-
-        <br>
-
-        <b>
-          💰 Total :
-          ${order.total.toLocaleString()}
-          FCFA
-        </b>
-
-        <p>
-          🕐 ${order.date}
-        </p>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-function showPage(id){
-
-  document
-  .querySelectorAll(".page")
-  .forEach(page=>{
-    page
-    .classList
-    .remove("active");
-  });
-
-
-  document
-  .getElementById(id)
-  .classList
-  .add("active");
-
-
-  window.scrollTo(0,0);
-
-}
-
-
-/* =========================
-   BADGE
-========================= */
-
-function updateBadge(){
-
-  document
-  .getElementById("badge")
-  .textContent =
-  cart.length;
-
-}
-
-
-/* =========================
-   DÉMARRAGE
-========================= */
-
-showProducts();
+const total=cart.reduce((s,p)=>s+Number(p.price),0);
+const order={
+id:Date.now(),name,phone,city,address,
+products:cart.map(p=>({...p})),
+total,date:new Date().toLocaleString('fr-FR')
+};
+
+orders.unshift(order);
+cart=[];
+
+if(!save())return;
 
 updateBadge();
+['name','phone','city','address'].forEach(id=>{
+document.getElementById(id).value='';
+});
+showPage('shop');
 
+const message='🛍️ NOUVELLE COMMANDE SOROMARCKET\n\n'+
+'👤 Client : '+name+'\n'+
+'📱 Téléphone : '+phone+'\n'+
+'📍 Ville : '+city+'\n'+
+'🏠 Adresse : '+address+'\n\n'+
+'📦 Produits :\n'+
+order.products.map(p=>'• '+p.name+' — '+Number(p.price).toLocaleString('fr-FR')+' FCFA').join('\n')+
+'\n\n💰 TOTAL : '+total.toLocaleString('fr-FR')+' FCFA';
+
+window.open('https://wa.me/2250141781750?text='+encodeURIComponent(message),'_blank');
+showOrders();
+alert('Commande enregistrée. Termine l’envoi en appuyant sur Envoyer dans WhatsApp.');
+}
+
+function login(){
+if(document.getElementById('password').value==='1234'){
+connected=true;
+document.getElementById('login').classList.add('hide');
+document.getElementById('panel').classList.remove('hide');
+showAdminProducts();
+alert('✅ Connexion réussie !');
+}else{
+alert('❌ Mot de passe incorrect.');
+}
+}
+
+function logout(){
+connected=false;
+document.getElementById('login').classList.remove('hide');
+document.getElementById('panel').classList.add('hide');
+document.getElementById('password').value='';
+}
+
+function addProduct(){
+if(!connected){
+alert('⚠️ Connecte-toi d’abord.');
+return;
+}
+
+const name=document.getElementById('productName').value.trim();
+const price=Number(document.getElementById('productPrice').value);
+const file=document.getElementById('productImage').files[0];
+
+if(!name||!Number.isFinite(price)||price<=0||!file){
+alert('⚠️ Indique le nom, un prix valide et choisis une photo.');
+return;
+}
+if(!file.type.startsWith('image/')){
+alert('Choisis un fichier image.');
+return;
+}
+if(file.size>1200000){
+alert('⚠️ Photo trop volumineuse. Choisis une image de moins de 1,2 Mo.');
+return;
+}
+
+const reader=new FileReader();
+
+reader.onload=()=>{
+const p={id:Date.now(),name,price,image:reader.result};
+products.unshift(p);
+
+if(!save()){
+products.shift();
+return;
+}
+
+showProducts();
+showAdminProducts();
+document.getElementById('productName').value='';
+document.getElementById('productPrice').value='';
+document.getElementById('productImage').value='';
+alert('✅ Produit publié dans cette boutique !');
+};
+
+reader.onerror=()=>alert('Impossible de lire cette photo. Réessaie.');
+reader.readAsDataURL(file);
+}
+
+function showAdminProducts(){
+const box=document.getElementById('adminProducts');
+box.innerHTML='';
+
+if(!products.length){
+box.innerHTML='<p>Aucun produit.</p>';
+return;
+}
+
+products.forEach(p=>{
+box.innerHTML+=`<div class="admin-item">
+<img src="${escapeHTML(p.image)}" alt="">
+<div class="admin-info"><b>${escapeHTML(p.name)}</b><br>${Number(p.price).toLocaleString('fr-FR')} FCFA</div>
+<button class="red" onclick="deleteProduct(${Number(p.id)})">🗑️</button>
+</div>`;
+});
+}
+
+function deleteProduct(id){
+if(!connected)return alert('Connecte-toi d’abord.');
+if(!confirm('Supprimer ce produit ?'))return;
+
+products=products.filter(p=>p.id!==id);
+save();
+showProducts();
+showAdminProducts();
+}
+
+function showOrders(){
+const box=document.getElementById('ordersList');
+const actions=document.getElementById('ordersActions');
+box.innerHTML='';
+actions.classList.toggle('hide',orders.length===0);
+
+if(!orders.length){
+box.innerHTML='<div class="empty">Aucune commande pour le moment.</div>';
+return;
+}
+
+orders.forEach(o=>{
+const list=(o.products||[]).map(p=>
+'• '+escapeHTML(p.name)+' — '+Number(p.price).toLocaleString('fr-FR')+' FCFA'
+).join('<br>');
+
+box.innerHTML+=`<div class="order">
+<h3>🧾 Commande #${Number(o.id)}</h3>
+<p>👤 ${escapeHTML(o.name)}</p>
+<p>📱 ${escapeHTML(o.phone)}</p>
+<p>📍 ${escapeHTML(o.city)}</p>
+<p>🏠 ${escapeHTML(o.address)}</p>
+<p>${list}</p>
+<b>💰 Total : ${Number(o.total).toLocaleString('fr-FR')} FCFA</b>
+<p>🕐 ${escapeHTML(o.date)}</p>
+<button class="red" onclick="deleteOrder(${Number(o.id)})">🗑️ Supprimer cette commande</button>
+</div>`;
+});
+}
+
+function deleteOrder(id){
+if(!confirm('Supprimer cette commande de ce navigateur ?'))return;
+orders=orders.filter(o=>o.id!==id);
+save();
+showOrders();
+}
+
+function deleteAllOrders(){
+if(!orders.length)return;
+if(!confirm('Supprimer TOUTES les commandes enregistrées sur ce navigateur ? Cette action est irréversible.'))return;
+orders=[];
+save();
+showOrders();
+alert('Liste des commandes vidée.');
+}
+
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+}
+
+function updateBadge(){
+document.getElementById('badge').textContent=cart.length;
+}
+
+showProducts();
+updateBadge();
 </script>
-
 </body>
 </html>
